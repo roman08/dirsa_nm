@@ -1,0 +1,11 @@
+.butomms {
+  display: flex;
+  gap: 15px;
+}
+
+.day_register {
+  color: #745af2 !important;
+  text-decoration: underline !important;
+  font-weight: bold !important;
+
+}

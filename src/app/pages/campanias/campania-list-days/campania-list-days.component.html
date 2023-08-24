@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="butomms">
+
+                    <h4 style="text-align: end;">
+                        <a [routerLink]="['/dashboard/list-months', id_campania]" class="btn btn-primary"><i
+                                class="mdi mdi-arrow-left-bold"></i> Regresar</a>
+
+                    </h4>
+                    <h4 class="card-title" style="text-align: end; display: flex; gap: 10px;">
+                        <button class="btn btn-primary" (click)="loadFile()" value=""><i class="mdi mdi-plus"></i>
+                            Registrar archivo XLS</button>
+                        <button class="btn btn-primary" (click)="downloadXls()">Descargar reporte XLS</button>
+                    </h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>No. de Agentes</th>
+                                <th>Horas Sistema registradas</th>
+                                <!-- TODO : NUEVO -->
+                                <th>Costo de nómina</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- TODO : LISTADO CAMAPAÑAS -->
+                            <tr *ngFor="let day of days | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <td>{{day.fecha }}</td>
+                                <td>{{day.empleados.length }}</td>
+                                <td>{{day.horas_dia}}</td>
+                                <!-- NUEVO -->
+                                <td>{{ day.nomina_dia }} MXN</td>
+                                <td>
+                                    <button class="btn btn-primary btn-block" (click)="showEmployees(day.empleados)">Ver
+                                        detalle</button>
+                                </td>
+
+                            </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="p = $event"
+                    style="text-align: center;"></pagination-controls>
+                </div>
+                <div class="col-12 info">
+                    <div class="info-detail">
+                        <p>Dias registrados: </p>
+                        <p class="cuadros-info">{{diasRegistrados}}</p>
+                    </div>
+                    <div class="info-detail">
+                        <p>Dias sin registrar: </p>
+                        <p class="cuadros-info">{{diasFaltantes}}</p>
+                    </div>
+                    <div class="info-detail">
+                        <p>Horas total meta: </p>
+                        <p class="cuadros-info">{{horasmeta}}</p>
+                    </div>
+                    <div class="info-detail">
+                        <p>Horas total sistema: </p>
+                        <p class="cuadros-info">{{horasSistema}}</p>
+                    </div>
+                    <div class="info-detail">
+                        <p>Diferencia: </p>
+                        <p class="cuadros-info">{{diferencia}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

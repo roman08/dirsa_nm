@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label">Seleccione la campaña</label>
+                                <select name="" id="" class="form-control" [(ngModel)]="campania" >
+                                    <option [value]="item.id" *ngFor="let item of campaniasAll"> {{ item.nombre }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Selecciona el mes</label>
+                                <select name="" id="" class="form-control" [(ngModel)]="mounth" >
+                                    <option value="1">Enero</option>
+                                    <option value="2">Febrero</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Mayo</option>
+                                    <option value="6">Junio</option>
+                                    <option value="7">Julio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Septiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label">Selecciona el año</label>
+                                <select name="" id="" class="form-control" [(ngModel)]="year" >
+                                    <option [value]=" item " *ngFor="let item of yearArray">{{ item }}</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 div-btn-search" >
+                            <button class="btn btn-primary btn-block" type="button" (click)="getDataGrafica(mounth, year,campania)">Buscar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="card bg-primary">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <!-- <img src="../assets/images/icon/income-w.png"
+                                                                    alt="Income"> -->
+                                            <i class="mdi mdi-human-handsdown"></i>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-white m-t-10 m-b-0">Agentes autorizados / Agentes reales</h6>
+                                            <h2 class="m-t-0 text-white"> {{ agente_atorizados}} / {{totalSumado}}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card bg-info">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <i class="mdi mdi-clock"></i>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-white m-t-10 m-b-0">Hora sistema en el mes acomuladas</h6>
+                                            <h2 class="m-t-0 text-white">{{ totalhoras }} HRS</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card bg-warning">
+                                <div class="card-body">
+                                    <div class="d-flex no-block">
+                                        <div class="m-r-20 align-self-center">
+                                            <i class="mdi mdi-currency-usd"></i>
+                                        </div>
+                                        <div class="align-self-center">
+                                            <h6 class="text-white m-t-10 m-b-0">Total de costo de nomina acomulado</h6>
+                                            <h2 class="m-t-0 text-white">$ {{ totalNomina  }} MNX</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div> 
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas 
+                            baseChart 
+                            width="400" 
+                            height="400" 
+                            [datasets]="lineChartData" 
+                            [labels]="lineChartLabels"
+                            [options]="lineChartOptions" 
+                            [legend]="lineChartLegend" 
+                            (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"
+                            ></canvas>
+                    </div>
+                </div>
+
+                <!-- <h4 class="card-title" style="text-align: end;"></h4>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha de creación</th>
+                                <th>Campaña</th>
+                                <th>Total de agentes</th>
+                                <th>Horas meta</th>
+                                <th>Horas sistema</th>
+                                <th>Diferencia</th>
+                                <th>Semaforo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let campania of campanias">
+                                <td>{{campania.id_campania }}</td>
+                                <td>{{campania.fecha_creacion }}</td>
+                                <td>{{campania.nombre }}</td>
+                                <td>{{campania.tot_agents}}</td>
+                                <td>1800</td>
+                                <td>{{campania.hrs_campania}}</td>
+                                <td> 0%</td>
+                                <td><span class="label  label-rounded label-success">{{ campania.estatus}}</span></td>
+                            </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

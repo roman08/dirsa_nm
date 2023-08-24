@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" style="text-align: end;">
+                    <button (click)="downloadXls()" class="btn btn-primary" value=""><i class="mdi mdi-plus"></i> Descargar XLS</button>
+                    <a href="#" (click)="backClicked()" class="btn btn-primary"><i class="mdi mdi-arrow-left-bold"></i>
+                        Regresar</a>
+                </h4>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No. Empleado</th>
+                                <th>Agente</th>
+                                <th>Horas sistema</th>
+                                <th>Horas meta</th>
+                                <th>Consto nomina</th>
+                                <th>Semaforo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- TODO : LISTADO CAMAPAÑAS -->
+                            <tr *ngFor="let empleado of empleados  | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <td>{{empleado.numero_empleado }}</td>
+                                <td>{{empleado.nombre }}</td>
+                                <td
+                                    [ngClass]="{'success': empleado.estatus === 1,  'danger' : empleado.estatus === 2 }">
+                                    {{empleado.horas_sistema }}</td>
+                                <td>{{empleado.horas_meta}}</td>
+                                <td>{{empleado.costo_nomina | currency }} MXN</td>
+                                <td>
+                                    <span class="label  label-rounded"
+                                        [ngClass]="{'label-warning': empleado.estatus === 1, 'label-danger' : empleado.estatus === 2, 'label-igual' : empleado.estatus === 3 }"></span>
+                                </td>
+
+                            </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="p = $event"
+                        style="text-align: center;"></pagination-controls>
+                </div>
+                <div class="col-12 info" >
+                    <div class="info-detail">
+                        <p>Total horas meta: </p> <p class="cuadros-info">{{horasMetaTotal}}</p>
+                    </div>
+                    <div class="info-detail">
+                        <p>Total horas horas_sistema: </p> <p class="cuadros-info">{{horasSistema}}</p>
+                    </div>
+                    <div class="info-detail">
+                        <p>Diferencia: </p> <p class="cuadros-info">{{diferenciaHoras}}</p>
+                    </div>
+                    <div class="info-detail">
+                        <p>Total costo de nómina: </p> <p class="cuadros-info">{{totalNomina | currency}} MXN</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

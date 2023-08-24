@@ -1,0 +1,21 @@
+.info {
+  text-align: end;
+}
+
+.info-detail {
+  display: block ruby;
+}
+
+.cuadros-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  width: 200px;
+  height: 50px;
+  margin: 0 auto;
+  margin-left: auto;
+    margin-left: 10px;
+  font-weight: bold;
+}
+
