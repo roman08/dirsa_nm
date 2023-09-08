@@ -4,19 +4,24 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <select name="" id="" class="form-control">
-                            <option value="">Seleccione una campaña</option>
+                        <label for="">Campaña</label>
+                        <select name="" id="" class="form-control" [(ngModel)]="campaing">
+                            <option [value]="item.id" *ngFor="let item of campanias">{{ item.nombre}}</option>
                         </select>
                     </div>
 
                     <div class="col-3">
-                        <input type="date" name="" id="" class="form-control">
+                        <label for="">Fecha inicio</label>
+                        <input type="date" name="" id="" class="form-control"[(ngModel)]="fechaInicio">
                     </div>
                     <div class="col-3">
 
-                        <input type="date" name="" id="" class="form-control">
+                        <label for="">Fecha final</label>
+                        <input type="date" name="" id="" class="form-control" [(ngModel)]="fechaFin">
                     </div>
-                    <div class="col-2"><button class="btn btn-primary" (click)="downloadXls()">Filtrar</button></div>
+                    <div class="col-2">
+                        <button class="btn btn-primary" style="margin-top: 30px;" (click)="filtros()">Filtrar</button>
+                    </div>
                 </div>
                 <div class="butomms mt-3">
                     <h4 class="card-title" style="text-align: end; display: flex; gap: 10px;">
@@ -39,7 +44,7 @@
                                 <th>Fecha de corte</th>
                                 <th>Acción</th>
                             </tr>
-                        </thead>
+                        </thead> 
                         <tbody>
                             <!-- TODO : LISTADO CAMAPAÑAS | paginate: { itemsPerPage: 10, currentPage: p }-->
                             <tr *ngFor="let clarification of clarifications ">
@@ -48,7 +53,7 @@
                                 <td>{{clarification.employee_number}}</td>
                                 <td>{{ clarification.name }} </td>
                                 <td>{{ clarification.date }} </td>
-                                <td>{{ clarification.nomina_dia }} </td>
+                                <td>{{ clarification.cat.name }} </td>
                                 <td>{{ clarification.hours }} </td>
                                 <td>{{ clarification.cut_date }} </td>
                                 <td>

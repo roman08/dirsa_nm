@@ -21,16 +21,7 @@ export class ClarificationService {
     return this.http.get(URL, { headers: headers }).pipe(map((res) => res));
   }
 
-  save(body: {
-    metadata: any[];
-    file: any;
-    observations: any;
-    id_user: any;
-    campaign_id: number;
-    employee_number: number;
-    name: string;
-    cut_date: any;
-  }): Observable<any> {
+  save(body: FormData): Observable<any> {
     const URL = this.baseUrl + `create`;
     const token = 'Bearer ' + JSON.parse(this._srvStorage.get('token'));
 
@@ -58,6 +49,16 @@ export class ClarificationService {
       .set('Accept', 'application/json')
       .set('Authorization', token);
     return this.http.get(URL, { headers: headers }).pipe(map((res) => res));
+  }
+
+  filtros(body: { fechaInicio: any; fechaFin: any; campaign_id: number; }): Observable<any> {
+    const URL = this.baseUrl + `filtros`;
+    const token = 'Bearer ' + JSON.parse(this._srvStorage.get('token'));
+
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', token);
+    return this.http.post(URL, body, { headers }).pipe(map((res) => res));
   }
 }
 

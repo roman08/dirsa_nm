@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ClarificationService } from 'src/app/services/clarification.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-clarifications-new',
@@ -11,7 +13,7 @@ export class ClarificationsNewComponent implements OnInit {
   clarificationForm: FormGroup;
 
   cantidad: number = 0; // Reemplaza 5 con el valor deseado
-  datos: any[] = []; // Array para almacenar los datos de las filas
+  datos!: any[]; // Array para almacenar los datos de las filas
   days = '0';
   base64String: any;
 
@@ -24,13 +26,16 @@ export class ClarificationsNewComponent implements OnInit {
   curp: string = '';
   campania: string = '';
   puesto: string = '';
-  id_user: any;
+  id_user: number = 0;
   fecha_pago: any;
   catClarificatiosn: any[] = [];
 
+  selectedFile!: File;
+
   constructor(
     private formBuilder: FormBuilder,
-    private _srvClarification: ClarificationService
+    private _srvClarification: ClarificationService,
+    private router: Router
   ) {
     this.clarificationForm = this.formBuilder.group({
       observations: new FormControl(''),
@@ -51,25 +56,49 @@ export class ClarificationsNewComponent implements OnInit {
       this.catClarificatiosn = res.data;
     });
   }
-  create() {}
+  create(observations: string) {
+    const campaing_id = 1;
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    formData.append('metadata', JSON.stringify(this.datos));
+    formData.append('observations', observations);
+    formData.append('id_user', this.id_user.toString());
+    formData.append('campaign_id', campaing_id.toString());
+    formData.append('employee_number', this.number_e.toString());
+    formData.append('name', this.name);
+    formData.append('cut_date', this.fecha_pago);
+    this._srvClarification.save(formData).subscribe((res) => {
+      if (res.status == 'success') {
+        swal.fire('Do It Right', res.message, 'success');
+        this.router.navigateByUrl('/clarificactions');
+      }else {
+        swal.fire("Error", "No se ha podido guardar la información", "error");
+      }
+    });
+  }
 
   enviarDatosAlServicio(): void {
-    const body = {
-      metadata: this.datos,
-      file: this.base64String,
-      observations: this.clarificationForm.controls['observations'].value,
-      id_user: this.id_user,
-      campaign_id: 1, //this.campania
-      employee_number: this.number_e,
-      name: this.name,
-      cut_date: this.fecha_pago,
-    };
+    const observations = this.clarificationForm.controls['observations'].value;
 
-    console.log(body);
-    
-    this._srvClarification.save(body).subscribe((res) => {
-      console.log(res);
-    });
+    if (this.id_user === 0) {
+      this.showError('Debes seleccionar un usuario.');
+    } else if (this.cantidad === 0) {
+      this.showError('Debes seleccionar la cantidad de días.');
+    } else if (
+      this.datos.some((elemento) => Object.keys(elemento).length === 0)
+    ) {
+      this.showError('Los días deben contener información.');
+    } else if (this.selectedFile == null) {
+      this.showError('Debes seleccionar un archivo de evidencia.');
+    } else if (observations.length === 0) {
+      this.showError('Debes agregar una observación.');
+    } else {
+      this.create(observations);
+    }
+  }
+
+  showError(message: string) {
+    swal.fire('Do It Right', message, 'error');
   }
 
   resetDays() {
@@ -81,38 +110,8 @@ export class ClarificationsNewComponent implements OnInit {
   }
 
   onFileSelected(event: any): void {
-    const selectedFile = event.target.files[0];
-
-    if (selectedFile) {
-      this.convertFileToBase64(selectedFile);
-    }
+    this.selectedFile = event.target.files[0];
   }
-
-  convertFileToBase64(file: File): void {
-    const reader = new FileReader();
-
-    reader.onload = (e: any) => {
-      this.base64String = e.target.result;
-      // Aquí puedes usar base64String como necesites
-      console.log(this.base64String);
-    };
-
-    reader.readAsDataURL(file);
-  }
-
-  // downloadFile(): void {
-
-  //   console.log(this.base64String);
-//   const url = this.base64String;
-
-  //   // Crear un enlace de descarga y hacer clic en él
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = 'nombre-de-la-imagen.png'; // Cambia el nombre del archivo según tu necesidad
-  //   a.click();
-  //   // Crear una URL de objeto para la imagen base64
-  
-  // }
 
   filterFruits() {
     console.log(this.inputText);
@@ -124,9 +123,6 @@ export class ClarificationsNewComponent implements OnInit {
           this.filteredFruits = respuesta.data;
         }
       });
-    // this.filteredFruits = this.fruits.filter((fruit) =>
-    //   fruit.toLowerCase().includes(this.inputText.toLowerCase())
-    // );
   }
 
   selectFruit(fruit: any) {
