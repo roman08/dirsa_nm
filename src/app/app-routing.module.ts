@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AuthRoutingModule } from './auth/auth.routing';
+import { ClarificationsRoutingModule } from './clarifications/clarifications.routing';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true }),
     PagesRoutingModule,
     AuthRoutingModule,
+    ClarificationsRoutingModule,
   ],
   exports: [RouterModule],
 })

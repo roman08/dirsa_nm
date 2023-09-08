@@ -1,0 +1,154 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <!-- <div class="col-6" style="display: flex; gap: 15px;">
+                        <input type="text" name="" id="" class="form-control" placeholder="Numero de empleado"
+                            [(ngModel)]="inputText" (input)="filterFruits()" (blur)="filterFruits()">
+                        <ul *ngIf="filteredFruits.length > 0">
+                            <li *ngFor="let fruit of filteredFruits" (click)="selectFruit(fruit)">{{ fruit }}</li>
+                        </ul>
+                    </div> -->
+                    <div class="col-6">
+
+                        
+                        <div class="autocomplete ">
+                            <input type="text" [(ngModel)]="inputText" (input)="filterFruits()"  class="form-control"/>
+                            <ul *ngIf="filteredFruits.length > 0">
+                                <li *ngFor="let fruit of filteredFruits" (click)="selectFruit(fruit)">{{ fruit.nombre_completo }}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-6 mt-5" style="text-align: end;">
+
+                        <a routerLink="/clarificactions" class="btn btn-primary"><i
+                                class="mdi mdi-arrow-left-bold"></i> Regresar</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">No. de empleado</label>
+                            <input type="text" id="firstName" class="form-control" readonly [(ngModel)]="number_e">
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label class="control-label">Nombre completo</label>
+                            <input type="text" id="number_e" class="form-control" readonly [(ngModel)]="name">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">CURP</label>
+                            <input type="text" id="firstName" class="form-control" readonly [(ngModel)]="curp">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">Campaña</label>
+                            <input type="text" id="firstName" class="form-control" readonly [(ngModel)]="campania">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">Puesto</label>
+                            <input type="text" id="firstName" class="form-control" readonly [(ngModel)]="puesto">
+                        </div>
+                    </div>
+                </div>
+                <form (submit)="enviarDatosAlServicio()" [formGroup]="clarificationForm">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="control-label">Selecciona los días</label>
+                                <select name="" id="" class="form-control" [(ngModel)]="cantidad" (change)="resetDays()"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-4">
+
+                            <button class="btn btn-primary" style="margin-top: 30px;">Agregar</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Día</th>
+                                        <th>Categoría</th>
+                                        <th>Horas a justificar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- TODO : LISTADO CAMAPAÑAS -->
+                                    <tr *ngFor="let i of datos; let index = index">
+                                        <td>
+                                            <input [(ngModel)]="datos[index].fecha" type="date" name="fecha{{ index }}" [ngModelOptions]="{standalone: true}"
+                                                class="form-control">
+
+                                        </td>
+                                        <td>
+                                            <select [(ngModel)]="datos[index].tipo" name="tipo{{ index }}" [ngModelOptions]="{standalone: true}"
+                                                class="form-control">
+                                                <option [value]="item.id" *ngFor="let item of catClarificatiosn">{{ item.name }}</option>
+                                                <!-- Agrega más opciones si es necesario -->
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input [(ngModel)]="datos[index].cantidad" type="number" [ngModelOptions]="{standalone: true}"
+                                                name="cantidad{{ index }}" class="form-control">
+                                        </td>
+                                    </tr>
+
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- <div class="col-12">
+                            <button class="btn btn-primary" (click)="enviarDatosAlServicio()" >Guardar</button>
+                        </div> -->
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6 mt-3">
+                            <label for="">Adjuntar archivo de evidencia</label>
+                            <input type="file" (change)="onFileSelected($event)" accept="image/*,application/pdf"
+                                class="form-control" />
+                        </div>
+                        
+                        <div class="col-12 mt-3">
+                            <label for="">Observaciones</label>
+                            <textarea name="" id="" cols="10" rows="5" class="form-control" formControlName='observations'></textarea>
+                        </div>
+                    </div>
+
+
+
+                    <div mat-dialog-actions class="btn-create mt-3">
+                        <a routerLink="/clarificactions" class="btn btn-warning">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -47,21 +47,21 @@
                             <div class="col-12" style="text-align: center;">
                                 <label class="control-label">{{ fileName }}</label>
                             </div>
-                            
-                            <div class="col-sm-4 text-center">
-                                <a routerLink="/dashboard/listado-campanias" class="btn btn-warning">
-                                    Cancelar</a>
-                                <button class="btn btn-primary" type="submit"><i
-                                        class="mdi mdi-content-save"></i>Guardar
-                                    datos </button>
-                            </div>
-                            <div class="col-sm-6 centered-div">
+                            <div class="col-sm-10 centered-div">
 
                                 <div class="progress ">
                                     <div class="progress-bar bg-success progress-bar-striped active"
                                         style=" height:10px;" [style.width.%]="progress" role="progressbar">
                                     </div>
                                 </div>
+                            </div>
+                            
+                            <div class="col-sm-12 text-center mt-3">
+                                <a routerLink="/dashboard/listado-campanias" class="btn btn-warning">
+                                    Cancelar</a>
+                                <button class="btn btn-primary" type="submit"><i
+                                        class="mdi mdi-content-save"></i>Guardar
+                                    datos </button>
                             </div>
                         </div>
                     </form>

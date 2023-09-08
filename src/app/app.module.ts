@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClarificationsModule } from './clarifications/clarifications.module';
 
 @NgModule({
   declarations: [AppComponent, NopagefoundComponent],
@@ -24,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    ClarificationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

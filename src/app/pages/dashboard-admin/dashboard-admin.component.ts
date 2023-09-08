@@ -85,7 +85,7 @@ export class DashboardAdminComponent implements OnInit {
       this.lineChartLabels = daysArry;
       const nameMonth = this.obtenerNombreMes(month);
       this.lineChartData = [
-        { data: nomina_dia, label: 'Nomina diaria del mes de ' + nameMonth },
+        { data: nomina_dia, label: 'Nómina diaria del mes de ' + nameMonth },
       ];
     });
   }

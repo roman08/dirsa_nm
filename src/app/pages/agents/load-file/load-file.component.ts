@@ -9,6 +9,7 @@ import { Campania } from 'src/app/models/campania.model';
 import { CampaniasService } from 'src/app/services/campanias.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-load-file',
@@ -37,7 +38,8 @@ export class LoadFileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _srvCampania: CampaniasService,
     private _srvStorage: StorageService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -63,10 +65,10 @@ export class LoadFileComponent implements OnInit {
     });
   }
 
-  loadAllCampanias(){
-     this._srvCampania.getCampanias().subscribe((res) => {
-       this.campanias = res['data'];
-     });
+  loadAllCampanias() {
+    this._srvCampania.getCampanias().subscribe((res) => {
+      this.campanias = res['data'];
+    });
   }
   onFileSelect(ev: any) {
     let workBook: XLSX.WorkBook;
@@ -85,10 +87,55 @@ export class LoadFileComponent implements OnInit {
         initial = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
+
       this.dataString = JSON.stringify(jsonData);
     };
     reader.readAsBinaryString(file);
   }
+
+  // onFileSelect(ev: any) {
+  //   const reader = new FileReader();
+  //   const file = ev.target.files[0];
+  //   this.fileName = file.name;
+  //   console.log(this.fileName);
+
+  //   reader.onload = (event) => {
+  //     const data = reader.result;
+  //     const workBook = XLSX.read(data, { type: 'binary' });
+
+  //     const jsonData = workBook.SheetNames.reduce((initial: any[], name) => {
+  //       const sheet = workBook.Sheets[name];
+  //       const sheetData = XLSX.utils.sheet_to_json(sheet);
+  //       initial.push(sheetData); // Agregar los datos de la hoja actual al array
+  //       return initial;
+  //     }, []);
+
+  //     const jsonDataWithNumericKeys = jsonData.map((hoja: any[]) => {
+  //       return hoja.map((objetoOriginal: any) => {
+  //         const objetoNumerico: { [key: number]: any } = {}; // Definir el tipo de objetoNumerico
+
+  //         let i = 1;
+
+  //         for (const key in objetoOriginal) {
+  //           if (objetoOriginal.hasOwnProperty(key)) {
+  //             objetoNumerico[i] = objetoOriginal[key];
+  //             i++;
+  //           }
+  //         }
+
+  //         return objetoNumerico;
+  //       });
+  //     });
+
+  //     console.log(jsonData[0][0]);
+
+  //     console.log(jsonDataWithNumericKeys[0][0]);
+  //     this.dataString = JSON.stringify(jsonDataWithNumericKeys);
+  //     // jsonDataWithNumericKeys ahora contiene los datos con claves numéricas
+  //   };
+
+  //   reader.readAsBinaryString(file);
+  // }
 
   donwloadFile() {}
 
@@ -107,10 +154,12 @@ export class LoadFileComponent implements OnInit {
       this.fileUploadForm.controls['myfile'].value
     );
 
+    // tipo_fuente: this.id_type_origin == 0 ? fuente : this.id_type_origin,
+
     const body = {
       data: this.dataString,
       user_id: this.user_id,
-      tipo_fuente: this.id_type_origin,
+      tipo_fuente: fuente == 1 ? 2 : 1,
       id_campania: fuente,
       day_register: fecha,
     };
@@ -162,7 +211,7 @@ export class LoadFileComponent implements OnInit {
                 this.agentsDanger = event.body.userNoValid;
 
                 console.log(this.agentsDanger);
-                this.downloadFile(objetos);
+                this.downloadFile(objetos,' Usurios_no_validos');
                 let data = JSON.stringify(this.agentsDanger);
                 const blob = new Blob([data], { type: 'application/json' });
                 this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -172,6 +221,7 @@ export class LoadFileComponent implements OnInit {
                 console.log(this.fileUrl);
               }
               swal.fire('Do It Right', event.body.msg, 'success');
+              this.router.navigateByUrl('/dashboard/listado-campanias');
             }, 2000);
           } else {
             setTimeout(() => {
@@ -188,7 +238,9 @@ export class LoadFileComponent implements OnInit {
   }
 
   downloadFile(data: any[], filename = 'data') {
-    let csvData = this.ConvertToCSV(data, ['DisplayName', 'No empleado']);
+    console.log(data);
+    
+    let csvData = this.ConvertToCSV(data, ['AGENT FIRST NAME', 'NO EMPLEADO']);
     console.log(csvData);
     let blob = new Blob(['\ufeff' + csvData], {
       type: 'text/csv;charset=utf-8;',

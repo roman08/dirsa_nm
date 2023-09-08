@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <select name="" id="" class="form-control">
+                            <option value="">Seleccione una campaña</option>
+                        </select>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="date" name="" id="" class="form-control">
+                    </div>
+                    <div class="col-3">
+
+                        <input type="date" name="" id="" class="form-control">
+                    </div>
+                    <div class="col-2"><button class="btn btn-primary" (click)="downloadXls()">Filtrar</button></div>
+                </div>
+                <div class="butomms mt-3">
+                    <h4 class="card-title" style="text-align: end; display: flex; gap: 10px;">
+                        <button class="btn btn-primary" (click)="createClarification()"><i class="mdi mdi-plus"></i>Nuevo</button>
+                        <button class="btn btn-primary" (click)="downloadXls()">Descargar reporte XLS</button>
+                    </h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Campaña</th>
+                                <th>No. Empleado</th>
+                                <th>Agente</th>
+                                <th>Fecha</th>
+                                <th>Categoría</th>
+                                <th>Horas</th>
+                                <th>Fecha de corte</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- TODO : LISTADO CAMAPAÑAS | paginate: { itemsPerPage: 10, currentPage: p }-->
+                            <tr *ngFor="let clarification of clarifications ">
+                                <td>{{clarification.id }}</td>
+                                <td>{{clarification.campaign_id }}</td>
+                                <td>{{clarification.employee_number}}</td>
+                                <td>{{ clarification.name }} </td>
+                                <td>{{ clarification.date }} </td>
+                                <td>{{ clarification.nomina_dia }} </td>
+                                <td>{{ clarification.hours }} </td>
+                                <td>{{ clarification.cut_date }} </td>
+                                <td>
+                                    <button class="btn btn-primary btn-block" (click)="donwloadFile(clarification)">Ver
+                                        comprobante</button>
+                                </td>
+
+                            </tr>
+ 
+
+
+
+                        </tbody>
+                    </table>
+                    <!-- <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="p = $event"
+                        style="text-align: center;"></pagination-controls> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

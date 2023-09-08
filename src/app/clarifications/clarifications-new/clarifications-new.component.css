@@ -1,0 +1,36 @@
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete input {
+  width: 600px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.autocomplete ul {
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+.autocomplete li {
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.autocomplete li:hover {
+  background-color: #f0f0f0;
+}
+
+.btn-create {
+    display: flex;
+    gap: 25px;
+}

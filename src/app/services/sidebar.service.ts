@@ -11,23 +11,23 @@ export class SidebarService {
       submenu: [
         {
           titulo: 'Dashboard',
-          url: 'dashboard-admin',
+          url: '/dashboard/dashboard-admin',
           roles: [{ name: 'Administrador' }],
         },
         {
           titulo: 'Campañas',
-          url: 'listado-campanias',
+          url: '/dashboard/listado-campanias',
           roles: [{ name: 'Administrador' }],
         },
         {
           titulo: 'Grupos de agentes',
-          url: 'listado-grupos',
+          url: '/dashboard/listado-grupos',
           roles: [{ name: 'Administrador' }],
         },
-        
+
         {
           titulo: 'Agentes',
-          url: 'agents',
+          url: '/dashboard/agents',
           roles: [{ name: 'Administrador' }],
         },
         {
@@ -37,12 +37,16 @@ export class SidebarService {
         },
         {
           titulo: 'Mi Campaña',
-          url: 'list-campanias-supervisor',
+          url: '/dashboard/list-campanias-supervisor',
           roles: [{ name: 'Lider' }],
+        },
+        {
+          titulo: 'Aclaraciones',
+          url: '/clarificactions',
+          roles: [{ name: 'Administrador' }],
         },
       ],
     },
-    
   ];
   constructor() {}
 }
