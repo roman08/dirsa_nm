@@ -82,7 +82,6 @@ const materialModules = [
     CampaniaListMonthsComponent,
     ShowListAgentsDayComponent,
     ShowListAgentsDangerComponent,
-    MesPipe,
     CoinsPipe,
     ListEmployeesComponent,
     CampaniaListDaysComponent,
@@ -95,7 +94,6 @@ const materialModules = [
     AccountSettingsComponent,
     materialModules,
     BillinguePipe,
-    MesPipe,
     CoinsPipe,
   ],
   imports: [

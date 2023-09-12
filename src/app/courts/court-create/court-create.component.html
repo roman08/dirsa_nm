@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 btn-back">
+
+                        <a routerLink="/clarificactions" class="btn btn-primary"><i class="mdi mdi-arrow-left-bold"></i>
+                            Regresar</a>
+                    </div>
+                </div>
+
+                <form (submit)="saveCourt()" [formGroup]="courtForm">
+                    <div class="row">
+                        <div class="col-4 form-group ">
+                            <label for="">Año</label>
+                            <select name="" id="" class="form-control"  formControlName="yaer" [(ngModel)]="yearActual">
+                                <option [value]="item" *ngFor="let item of yearsArray">{{ item }}</option>
+                            </select>
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Mes</label>
+                            <select name="" id="" class="form-control" formControlName="month"  [(ngModel)]="mounth">
+                                <option [value]="mes.id" *ngFor="let mes of meses">{{ mes.nombre }}</option>
+                            </select>
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Fecha de pago</label>
+                            <input type="date" name="" id="" class="form-control" formControlName="pay_day">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Fecha inicio</label>
+                            <input type="date" name="" id="" class="form-control" formControlName="start_day">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Fecha fin</label>
+                            <input type="date" name="" id="" class="form-control" formControlName="end_day">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Fecha de dispersión</label>
+                            <input type="date" name="" id="" class="form-control" formControlName="dispersion_day">
+                        </div>
+                        <div class="col-4 form-group">
+                            <label for="">Corte</label>
+                            <select name="" id="" class="form-control" formControlName="court">
+                                <option value="7-22">7-22</option>
+                                <option value="15-30">15-30</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+
+
+
+
+                    <div mat-dialog-actions class="btn-create mt-3">
+                        <a routerLink="/courts" class="btn btn-warning">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,3 +3,9 @@
   color: black;
   /* Agrega otros estilos de resaltado para el elemento activo */
 }
+
+.btn-logout {
+  cursor: pointer;
+}
+
+

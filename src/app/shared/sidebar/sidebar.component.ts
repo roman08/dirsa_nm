@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SidebarService } from 'src/app/services/sidebar.service';
 import { StorageService } from 'src/app/services/storage.service';
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -24,13 +23,22 @@ export class SidebarComponent implements OnInit {
     private sidebarService: SidebarService,
     private _srvStorage: StorageService,
     private router: Router,
-    private _srvAuth: AuthService
+    private _srvAuth: AuthService,
+    private activatedRoute: ActivatedRoute
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentRoute = event.urlAfterRedirects;
-      }
-    });
+
+     this.router.events.subscribe((event) => {
+       if (event instanceof NavigationEnd) {
+         this.currentRoute =
+           this.activatedRoute.root.firstChild?.snapshot.routeConfig?.path ||
+           '';
+       }
+     });
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.currentRoute = event.urlAfterRedirects;
+    //   }
+    // });
 
     this.role = JSON.parse(this._srvStorage.get('role'));
     this.total = this.role == 'Administrador' ? 4 : 2;
@@ -41,7 +49,7 @@ export class SidebarComponent implements OnInit {
     this.imgProfile =
       imgProfile == ''
         ? JSON.parse(imgProfile)
-        : 'https://www.fgjcdmx.gob.mx/themes/base/assets/images/def-user.png';
+        : 'https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png';
 
     this.email = JSON.parse(this._srvStorage.get('email'));
   }

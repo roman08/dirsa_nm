@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AuthRoutingModule } from './auth/auth.routing';
 import { ClarificationsRoutingModule } from './clarifications/clarifications.routing';
+import { CourtsRoutingModule } from './courts/courts.routing';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
     PagesRoutingModule,
     AuthRoutingModule,
     ClarificationsRoutingModule,
+    CourtsRoutingModule,
   ],
   exports: [RouterModule],
 })

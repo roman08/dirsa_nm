@@ -1,0 +1,8 @@
+.btn-back {
+    text-align: end;
+}
+
+.btn-create {
+    display: flex;
+    gap: 25px;
+}

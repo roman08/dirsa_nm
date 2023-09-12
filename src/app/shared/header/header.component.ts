@@ -19,9 +19,10 @@ export class HeaderComponent implements OnInit {
   ) {
     this.nameUser = JSON.parse(this._srvStorage.get('user_name'));
     const imgProfile = this._srvStorage.get('img_profile');
-    this.imgProfile = (imgProfile == "")
-      ? JSON.parse(imgProfile)
-      : 'https://www.fgjcdmx.gob.mx/themes/base/assets/images/def-user.png';
+    this.imgProfile =
+      imgProfile == ''
+        ? JSON.parse(imgProfile)
+        : 'https://www.pngitem.com/pimgs/m/150-1503945_transparent-user-png-default-user-image-png-png.png';
     this.email = JSON.parse(this._srvStorage.get('email'));
   }
 

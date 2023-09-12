@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
@@ -14,6 +15,7 @@ import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarificationsModule } from './clarifications/clarifications.module';
+import { CourtsModule } from './courts/courts.module';
 
 @NgModule({
   declarations: [AppComponent, NopagefoundComponent],
@@ -25,7 +27,9 @@ import { ClarificationsModule } from './clarifications/clarifications.module';
     HttpClientModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
-    ClarificationsModule
+    ClarificationsModule,
+    CourtsModule,
+    RouterModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

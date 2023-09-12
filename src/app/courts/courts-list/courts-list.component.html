@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <label for="">Año</label>
+                        <select name="" id="" class="form-control" [(ngModel)]="year">
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+
+                    <div class="col-4">
+                        <label for="">Fecha de corte </label>
+                        <select name="" id="" class="form-control" [(ngModel)]="court">
+                            <option value="1">Todos los cortes</option>
+                            <option value="2">15-30</option>
+                            <option value="3">7-20</option>
+                        </select>
+                    </div>
+                   
+                    <div class="col-2">
+                        <button class="btn btn-primary btn-filtros" (click)="filtros()">Filtrar</button>
+                    </div>
+                </div>
+                <div class="butomms mt-3">
+                    <h4 class="card-title">
+                        <button class="btn btn-primary" (click)="createCourt()"><i
+                                class="mdi mdi-plus"></i>Nuevo</button>
+                    </h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Año</th>
+                                <th>Mes</th>
+                                <th>Fecha pago</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Fecha disperción</th>
+                                <th>Corte</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- TODO : LISTADO CAMAPAÑAS | paginate: { itemsPerPage: 10, currentPage: p }-->
+                            <tr *ngFor="let court of courts ">
+                                <td>{{court.id }}</td>
+                                <td>{{court.yaer }}</td>
+                                <td>{{court.month | mes }}</td>
+                                <td>{{ court.pay_day }} </td>
+                                <td>{{ court.start_day }} </td>
+                                <td>{{ court.end_day }} </td>
+                                <td>{{ court.dispersion_day }} </td>
+                                <td>{{ court.court }} </td>
+                                <td class="actions">
+                                    <a  href="#"><i class="mdi mdi-eye"></i></a>
+                                    <a [routerLink]="['/dashboard/group-edit', court.id ]"><i class="mdi mdi-pencil"></i></a>
+                                    <a (click)="delete(court.id)" style="cursor: pointer;"><i class="mdi mdi-delete"></i></a>
+                                </td>
+                                
+                            </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <!-- <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="p = $event"
+                        style="text-align: center;"></pagination-controls> -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,3 +6,13 @@
     text-align: end; 
     display: flex; gap: 10px;
 }
+
+.actions {
+    display: flex;
+    gap: 10%;
+}
+
+.actions i {
+    font-size: 25px;
+    color: blue;
+}

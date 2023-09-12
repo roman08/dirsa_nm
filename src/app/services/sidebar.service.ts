@@ -45,6 +45,11 @@ export class SidebarService {
           url: '/clarificactions',
           roles: [{ name: 'Administrador' }],
         },
+        {
+          titulo: 'Fechas para corte de nomina',
+          url: '/courts',
+          roles: [{ name: 'Administrador' }],
+        },
       ],
     },
   ];
