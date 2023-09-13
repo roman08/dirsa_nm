@@ -7,7 +7,7 @@
                     <div class="col-4">
                         <label for="">Año</label>
                         <select name="" id="" class="form-control" [(ngModel)]="year">
-                            <option value="2023">2023</option>
+                            <option [value]="item" *ngFor="let item of yearsArray">{{ item }}</option>
                         </select>
                     </div>
 
@@ -16,7 +16,7 @@
                         <select name="" id="" class="form-control" [(ngModel)]="court">
                             <option value="1">Todos los cortes</option>
                             <option value="2">15-30</option>
-                            <option value="3">7-20</option>
+                            <option value="3">7-22</option>
                         </select>
                     </div>
                    

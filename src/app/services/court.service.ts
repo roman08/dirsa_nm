@@ -48,4 +48,14 @@ export class CourtService {
       .set('Authorization', token);
     return this.http.delete(URL, { headers: headers }).pipe(map((res) => res));
   }
+
+  filter(body: any): Observable<any> {
+    const URL = this.baseUrl + `filter`;
+    const token = 'Bearer ' + JSON.parse(this._srvStorage.get('token'));
+
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', token);
+    return this.http.post(URL, body, { headers }).pipe(map((res) => res));
+  }
 }

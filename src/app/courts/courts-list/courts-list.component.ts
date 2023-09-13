@@ -15,6 +15,8 @@ export class CourtsListComponent implements OnInit {
   court = '2';
   courts: any[] = [];
   isLoading: boolean = false;
+  yearActual!: number;
+  yearsArray: number[] = [];
   constructor(
     private router: Router,
     private _srvCourt: CourtService,
@@ -23,6 +25,7 @@ export class CourtsListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getYears();
     this.getAll();
   }
 
@@ -33,7 +36,18 @@ export class CourtsListComponent implements OnInit {
       this.loadingService.hide();
     });
   }
-  filtros() {}
+  filtros() {
+    this.loadingService.show();
+    let body = {
+      year: this.year,
+      court: Number(this.court),
+    };
+
+    this._srvCourt.filter(body).subscribe((res) => {
+      this.courts = res.data;
+      this.loadingService.hide();
+    });
+  }
 
   createCourt() {
     this.router.navigateByUrl('/courts/court-new');
@@ -48,7 +62,7 @@ export class CourtsListComponent implements OnInit {
     swal
       .fire({
         title: 'Do It Right',
-        text: "¿Estas seguro de eliminar el registo?",
+        text: '¿Estas seguro de eliminar el registo?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -59,12 +73,29 @@ export class CourtsListComponent implements OnInit {
         if (result.isConfirmed) {
           this._srvCourt.delete(item).subscribe((res) => {
             console.log(res);
-            swal.fire('Elimiando!', 'El registro se ha eliminado correctamente', 'success');
+            swal.fire(
+              'Elimiando!',
+              'El registro se ha eliminado correctamente',
+              'success'
+            );
             this.getAll();
           });
         }
       });
 
     console.log(item);
+  }
+
+  getYears() {
+    // Obtener el año actual
+    this.yearActual = new Date().getFullYear();
+
+    // Crear un arreglo de años desde el año actual hasta 4 años en el futuro
+
+    for (let i = 0; i < 5; i++) {
+      this.yearsArray.push(this.yearActual + i);
+    }
+
+    console.log(this.yearsArray);
   }
 }
