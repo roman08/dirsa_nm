@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { CourtsListComponent } from './courts-list/courts-list.component';
 import { CourtCreateComponent } from './court-create/court-create.component';
-import { MesPipe } from '../pipes/mes.pipe';
 
 
 

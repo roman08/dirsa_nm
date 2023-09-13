@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Campania } from 'src/app/models/campania.model';
 import { CampaniasService } from 'src/app/services/campanias.service';
 import { ClarificationService } from 'src/app/services/clarification.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
@@ -21,7 +22,8 @@ export class ClarificationsListsComponent implements OnInit {
   constructor(
     private router: Router,
     private _srvClarification: ClarificationService,
-    private _srvCampanias: CampaniasService
+    private _srvCampanias: CampaniasService,
+    private loadingService: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -68,13 +70,12 @@ export class ClarificationsListsComponent implements OnInit {
   }
 
   filtros() {
-
     const body = {
       fechaInicio: this.fechaInicio,
       fechaFin: this.fechaFin,
       campaign_id: this.campaing,
     };
-    this._srvClarification.filtros(body).subscribe( res => {
+    this._srvClarification.filtros(body).subscribe((res) => {
       this.clarifications = [];
       this.clarifications = res.data;
     });

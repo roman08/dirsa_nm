@@ -16,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarificationsModule } from './clarifications/clarifications.module';
 import { CourtsModule } from './courts/courts.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, NopagefoundComponent],
@@ -30,6 +31,7 @@ import { CourtsModule } from './courts/courts.module';
     ClarificationsModule,
     CourtsModule,
     RouterModule.forRoot([]),
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent],

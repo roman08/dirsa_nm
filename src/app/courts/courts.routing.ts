@@ -16,12 +16,18 @@ const routes: Routes = [
         data: { titulo: 'Fechas para corte de nómina' },
         canActivate: [AccesoGuard],
       },
-        {
-          path: 'court-new',
-          component: CourtCreateComponent,
-          data: { titulo: 'Fechas para corte de nómina / Crear nueva' },
-          canActivate: [AccesoGuard],
-        },
+      {
+        path: 'court-new',
+        component: CourtCreateComponent,
+        data: { titulo: 'Fechas para corte de nómina / Crear nueva' },
+        canActivate: [AccesoGuard],
+      },
+      {
+        path: 'court-new/:id',
+        component: CourtCreateComponent,
+        data: { titulo: 'Fechas para corte de nómina / Crear nueva' },
+        canActivate: [AccesoGuard],
+      },
     ],
   },
 ];

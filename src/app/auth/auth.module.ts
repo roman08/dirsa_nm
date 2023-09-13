@@ -7,8 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { LoadingComponent } from '../loading';
 import { ProfileComponent } from './profile/profile.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -16,16 +16,16 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     RegisterComponent,
     ChangePasswordComponent,
-    LoadingComponent,
     ProfileComponent,
   ],
-  exports: [LoginComponent, RegisterComponent, LoadingComponent],
+  exports: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
+    SharedModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

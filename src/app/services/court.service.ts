@@ -29,4 +29,23 @@ export class CourtService {
       .set('Authorization', token);
     return this.http.post(URL, body, { headers }).pipe(map((res) => res));
   }
+
+  edit(body: any): Observable<any> {
+    const URL = this.baseUrl + `edit`;
+    const token = 'Bearer ' + JSON.parse(this._srvStorage.get('token'));
+
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', token);
+    return this.http.put(URL, body, { headers }).pipe(map((res) => res));
+  }
+  delete(item: any): Observable<any> {
+    const URL = this.baseUrl + `delete?id=${item}`;
+    const token = 'Bearer ' + JSON.parse(this._srvStorage.get('token'));
+
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', token);
+    return this.http.delete(URL, { headers: headers }).pipe(map((res) => res));
+  }
 }

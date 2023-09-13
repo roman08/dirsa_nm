@@ -5,12 +5,13 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { MesPipe } from '../pipes/mes.pipe';
+import { LoadingComponent } from '../loading';
 
 
 
 @NgModule({
-  declarations: [BreadcrumbsComponent, SidebarComponent, HeaderComponent, MesPipe],
-  exports: [BreadcrumbsComponent, SidebarComponent, HeaderComponent, MesPipe],
+  declarations: [BreadcrumbsComponent, SidebarComponent, HeaderComponent, MesPipe, LoadingComponent],
+  exports: [BreadcrumbsComponent, SidebarComponent, HeaderComponent, MesPipe, LoadingComponent],
   imports: [CommonModule, RouterModule],
 })
 export class SharedModule {}

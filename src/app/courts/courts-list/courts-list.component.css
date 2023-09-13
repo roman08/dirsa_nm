@@ -14,5 +14,9 @@
 
 .actions i {
     font-size: 25px;
-    color: blue;
+    color: #745af2;
+}
+
+a {
+    cursor: pointer;
 }
