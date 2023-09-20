@@ -1,0 +1,45 @@
+.danger {
+  color: red;
+  font-weight: 400;
+}
+
+.success {
+  color: #007bff;
+  font-weight: 400;
+}
+
+.label-warning {
+  background-color: #007bff !important;
+}
+
+.label-igual {
+  background-color: green !important;
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+.btn-filtros {
+    margin-top: 30px;
+}
+
+.mi-div {
+  /* Agregar un borde sólido de 1px de ancho, color gris (#ccc) */
+  border: 1px solid #ccc;
+
+  /* Agregar una sombra ligera:
+     - Offset horizontal de 2px
+     - Offset vertical de 2px
+     - Desenfoque (blur) de 5px
+     - Color de la sombra gris claro (#aaa) */
+  box-shadow: 2px 2px 5px #aaa;
+
+  /* Espacio alrededor del contenido para separarlo del borde */
+  padding: 10px;
+}
+
+ul > li {
+    margin-bottom: 10px;
+}

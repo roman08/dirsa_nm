@@ -45,6 +45,7 @@ import { AuthModule } from '../auth/auth.module';
 import { CoinsPipe } from '../pipes/coins.pipe';
 import { ListEmployeesComponent } from './dashboard-admin/list-employees/list-employees.component';
 import { CampaniaListDaysComponent } from './campanias/campania-list-days/campania-list-days.component';
+import { CampaignReportComponent } from './campanias/campaign-report/campaign-report.component';
 
 const materialModules = [
   MatButtonModule,
@@ -85,6 +86,7 @@ const materialModules = [
     CoinsPipe,
     ListEmployeesComponent,
     CampaniaListDaysComponent,
+    CampaignReportComponent,
   ],
   exports: [
     DashboardComponent,

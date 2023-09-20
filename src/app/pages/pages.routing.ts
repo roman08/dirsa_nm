@@ -27,6 +27,7 @@ import { ShowListAgentsDangerComponent } from './supervisor/show-list-agents-dan
 import { ProfileComponent } from '../auth/profile/profile.component';
 import { ListEmployeesComponent } from './dashboard-admin/list-employees/list-employees.component';
 import { CampaniaListDaysComponent } from './campanias/campania-list-days/campania-list-days.component';
+import { CampaignReportComponent } from './campanias/campaign-report/campaign-report.component';
 
 
 
@@ -177,6 +178,12 @@ const routes: Routes = [
         path: 'list-days/:idMonth/:idCampania',
         component: CampaniaListDaysComponent,
         data: { titulo: 'Lista de dias por mes' },
+        canActivate: [AccesoGuard],
+      },
+      {
+        path: 'campaign-report',
+        component: CampaignReportComponent,
+        data: { titulo: 'Reporte por campaña' },
         canActivate: [AccesoGuard],
       },
       //   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

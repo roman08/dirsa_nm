@@ -50,6 +50,11 @@ export class SidebarService {
           url: '/courts',
           roles: [{ name: 'Administrador' }],
         },
+        {
+          titulo: 'Reporte por campaña',
+          url: '/dashboard/campaign-report',
+          roles: [{ name: 'Administrador' }],
+        },
       ],
     },
   ];

@@ -233,4 +233,17 @@ export class CampaniasService {
 
     return this.http.get(URL, { headers: headers }).pipe(map((res) => res));
   }
+
+  getCampaingFilter(id: any, fechaInicio: any, fechaFin: any): Observable<any> {
+    const URL =
+      this.baseUrl +
+      `campanias/campaingReport?id=${id}&fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
+    const token = 'Bearer ' + JSON.parse(this._srvStorage.get('token'));
+
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', token);
+
+    return this.http.get(URL, { headers: headers }).pipe(map((res) => res));
+  }
 }
