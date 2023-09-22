@@ -4,6 +4,8 @@ import { Campania } from 'src/app/models/campania.model';
 import { CCPM } from 'src/app/models/ccpm.model';
 import { Employees } from 'src/app/models/employees.model';
 import { CampaniasService } from 'src/app/services/campanias.service';
+import { format } from 'date-fns';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-campaign-report',
@@ -49,10 +51,20 @@ export class CampaignReportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Obtener la fecha actual
+    const fechaActual = new Date();
+
+    // Formatear la fecha en el formato "YYYY-MM-DD"
+    this.endDate = format(fechaActual, 'yyyy-MM-dd');
+    this.initDate = this.obtenerPrimerDiaDelMes(this.endDate);
+    
+
     this._srvCampanias.getCampanias().subscribe((res) => {
       console.log(res);
       this.campaniasAll = res.data;
       this.campania = this.campaniasAll[0].id;
+      this.idCampaing = this.campaniasAll[0].id;
+      this.filterReport();
     });
   }
 
@@ -138,37 +150,42 @@ export class CampaignReportComponent implements OnInit {
     this._srvCampania
       .getCampaingFilter(this.idCampaing, this.initDate, this.endDate)
       .subscribe((res) => {
-        this.data = res.data.hora_grafica;
-        this.ccpms = res.ccpm;
-
-        const hrsSystem = Number(this.data[this.mounth]);
-
-        this.hrsSystem = hrsSystem.toFixed(2);
-        console.log(res.data2);
-        this.setEmpleados(res.data2);
-        // this.empleados = res.data2;
-
-        let horasTotal = [];
-        let horasSistema = [];
-        let meses = [];
-
-        for (const key in this.data) {
-          if (this.data.hasOwnProperty(key)) {
-            const mes = this.ccpms.filter((x) => x.id_mes == Number(key))[0];
-            horasTotal.push(mes.total_horas);
-            horasSistema.push(this.data[key]);
-            const nMes = Number(key);
-            meses.push(this.obtenerNombreMes(nMes));
+        if(res.status == 'success'){
+          this.data = res.data.hora_grafica;
+          this.ccpms = res.ccpm;
+  
+          const hrsSystem = Number(this.data[this.mounth]);
+  
+          this.hrsSystem = hrsSystem.toFixed(2);
+          console.log(res.data2);
+          this.setEmpleados(res.data2);
+          // this.empleados = res.data2;
+  
+          let horasTotal = [];
+          let horasSistema = [];
+          let meses = [];
+  
+          for (const key in this.data) {
+            if (this.data.hasOwnProperty(key)) {
+              const mes = this.ccpms.filter((x) => x.id_mes == Number(key))[0];
+              horasTotal.push(mes.total_horas);
+              horasSistema.push(this.data[key]);
+              const nMes = Number(key);
+              meses.push(this.obtenerNombreMes(nMes));
+            }
           }
+  
+          this.lineChartLabels = meses;
+  
+          this.lineChartData = [
+            { data: horasTotal, label: 'Horas meta' },
+            { data: horasSistema, label: 'Horas sistema' },
+          ];
+          this.reportNomina(res.facturacion, res.nomina_total);
+
+        }else{
+          swal.fire('Do It Right', res.message, 'error');
         }
-
-        this.lineChartLabels = meses;
-
-        this.lineChartData = [
-          { data: horasTotal, label: 'Horas meta' },
-          { data: horasSistema, label: 'Horas sistema' },
-        ];
-        this.reportNomina(this.ccpms, res.nomina_total);
       });
   }
 
@@ -191,14 +208,14 @@ export class CampaignReportComponent implements OnInit {
 
   reportNomina(item: any, total: any) {
     const num = parseFloat(total.replace(/,/g, ''));
-    if (item.length > 0) {
-      let mes = item[0];
-      this.lineChartLabels2 = ['Total'];
-      this.lineChartData2 = [
-        { data: [mes.total_costo], label: 'Facturación' },
-        { data: [num], label: 'Nómina' },
-      ];
-    }
+    // if (item.length > 0) {
+    // let mes = item[0];
+    this.lineChartLabels2 = ['Total'];
+    this.lineChartData2 = [
+      { data: [item], label: 'Facturación' },
+      { data: [num], label: 'Nómina' },
+    ];
+    // }
   }
 
   setEmpleados(item: any) {
@@ -270,5 +287,21 @@ export class CampaignReportComponent implements OnInit {
 
   padZero(value: number): string {
     return value.toString().padStart(2, '0');
+  }
+
+  obtenerPrimerDiaDelMes(fecha: string): string {
+    const partesFecha = fecha.split('-');
+    const anio = parseInt(partesFecha[0]);
+    const mes = parseInt(partesFecha[1]);
+
+    // Crear una nueva fecha con el mismo anio y mes, pero con día 1.
+    const primerDiaDelMes = new Date(anio, mes - 1, 1);
+
+    // Formatear la fecha en el mismo formato "YYYY-MM-DD".
+    const anioStr = primerDiaDelMes.getFullYear().toString();
+    const mesStr = (primerDiaDelMes.getMonth() + 1).toString().padStart(2, '0');
+    const diaStr = '01';
+
+    return `${anioStr}-${mesStr}-${diaStr}`;
   }
 }
