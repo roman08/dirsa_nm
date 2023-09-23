@@ -14,16 +14,22 @@
                     </div>
                     <div class="col-md-3">
                         <label class="control-label">Día inicial</label>
-                        <input type="date" name="" id="" class="form-control" [(ngModel)]="initDate"  (change)="calculateLastDayOfMonth()">
+                        <input type="date" name="" id="" class="form-control" [(ngModel)]="initDate"
+                            (change)="calculateLastDayOfMonth()">
                     </div>
                     <div class="col-md-3">
                         <label class="control-label">Dia final</label>
-                        <input type="date" name="" id="" class="form-control" [(ngModel)]="endDate" [min]="initDate"  [max]="maxEndDate">
+                        <input type="date" name="" id="" class="form-control" [(ngModel)]="endDate" [min]="initDate"
+                            [max]="maxEndDate">
                     </div>
 
 
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-primary btn-filtros" (click)="filterReport()">Filtrar</button>
+                    <div class="col-md-3 ">
+                        <button type="button" class="btn btn-primary btn-filtros"
+                            (click)="filterReport()">Filtrar</button>
+                        <button (click)="downloadXls()" class="btn btn-primary btn-filtros button-download" value=""><i
+                                class="mdi mdi-plus"></i> Descargar XLS</button>
+
                     </div>
                 </div>
             </div>
@@ -43,24 +49,24 @@
                         <h3 class="card-title">FACTURACION VS COSTO NOMINA</h3>
                         <!-- <h4>2023</h4> -->
                         <hr>
-                        <canvas baseChart width="400" height="400" [datasets]="lineChartData2" [labels]="lineChartLabels2"
-                            [options]="lineChartOptions" [legend]="lineChartLegend" (chartHover)="chartHovered($event)"
-                            (chartClick)="chartClicked($event)"></canvas>
+                        <canvas baseChart width="400" height="400" [datasets]="lineChartData2"
+                            [labels]="lineChartLabels2" [options]="lineChartOptions" [legend]="lineChartLegend"
+                            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
                     </div>
                     <div class="col-3 mi-div ">
                         <h3>TOP TEN de Agentes</h3>
                         <ul>
-                            <li *ngFor="let item of empleadosTop"> 
+                            <li *ngFor="let item of empleadosTop">
                                 <span class="label  label-rounded label-success"></span>
                                 {{ item.nombre }}
                             </li>
                         </ul>
                     </div>
                     <div class="col-3 mi-div ">
-                        <h3>Agentes  en riesgo</h3>
+                        <h3>Agentes en riesgo</h3>
                         <ul>
                             <li *ngFor="let item of peoresEmpleados">
-                                <span class="label  label-rounded label-danger"></span> 
+                                <span class="label  label-rounded label-danger"></span>
                                 {{ item.nombre }}
                             </li>
                         </ul>
@@ -81,10 +87,12 @@
                             </thead>
                             <tbody>
                                 <!-- TODO : LISTADO CAMAPAÑAS -->
-                                <tr *ngFor="let empleado of empleados  | paginate: { itemsPerPage: 10, currentPage: p }">
+                                <tr
+                                    *ngFor="let empleado of empleados  | paginate: { itemsPerPage: 10, currentPage: p }">
                                     <td>{{empleado.numero_empleado }}</td>
                                     <td>{{empleado.nombre }}</td>
-                                    <td [ngClass]="{'success': empleado.estatus === 1,  'danger' : empleado.estatus === 2 }">
+                                    <td
+                                        [ngClass]="{'success': empleado.estatus === 1,  'danger' : empleado.estatus === 2 }">
                                         {{empleado.horas_sistema }}</td>
                                     <td>{{empleado.horas_meta}}</td>
                                     <td>{{empleado.costo_nomina | currency }} MXN</td>
@@ -92,12 +100,12 @@
                                         <span class="label  label-rounded"
                                             [ngClass]="{'label-warning': empleado.estatus === 1, 'label-danger' : empleado.estatus === 2, 'label-igual' : empleado.estatus === 3 }"></span>
                                     </td>
-                    
+
                                 </tr>
-                    
-                    
-                    
-                    
+
+
+
+
                             </tbody>
                         </table>
                         <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="p = $event"

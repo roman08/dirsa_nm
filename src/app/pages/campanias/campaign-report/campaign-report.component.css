@@ -43,3 +43,7 @@ ul {
 ul > li {
     margin-bottom: 10px;
 }
+
+.button-download {
+  margin-left: 10px;
+}

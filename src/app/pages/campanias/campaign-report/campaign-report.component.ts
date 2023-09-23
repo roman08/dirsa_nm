@@ -6,6 +6,7 @@ import { Employees } from 'src/app/models/employees.model';
 import { CampaniasService } from 'src/app/services/campanias.service';
 import { format } from 'date-fns';
 import swal from 'sweetalert2';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-campaign-report',
@@ -57,7 +58,6 @@ export class CampaignReportComponent implements OnInit {
     // Formatear la fecha en el formato "YYYY-MM-DD"
     this.endDate = format(fechaActual, 'yyyy-MM-dd');
     this.initDate = this.obtenerPrimerDiaDelMes(this.endDate);
-    
 
     this._srvCampanias.getCampanias().subscribe((res) => {
       console.log(res);
@@ -150,21 +150,21 @@ export class CampaignReportComponent implements OnInit {
     this._srvCampania
       .getCampaingFilter(this.idCampaing, this.initDate, this.endDate)
       .subscribe((res) => {
-        if(res.status == 'success'){
+        if (res.status == 'success') {
           this.data = res.data.hora_grafica;
           this.ccpms = res.ccpm;
-  
+
           const hrsSystem = Number(this.data[this.mounth]);
-  
+
           this.hrsSystem = hrsSystem.toFixed(2);
           console.log(res.data2);
           this.setEmpleados(res.data2);
           // this.empleados = res.data2;
-  
+
           let horasTotal = [];
           let horasSistema = [];
           let meses = [];
-  
+
           for (const key in this.data) {
             if (this.data.hasOwnProperty(key)) {
               const mes = this.ccpms.filter((x) => x.id_mes == Number(key))[0];
@@ -174,16 +174,15 @@ export class CampaignReportComponent implements OnInit {
               meses.push(this.obtenerNombreMes(nMes));
             }
           }
-  
+
           this.lineChartLabels = meses;
-  
+
           this.lineChartData = [
             { data: horasTotal, label: 'Horas meta' },
             { data: horasSistema, label: 'Horas sistema' },
           ];
           this.reportNomina(res.facturacion, res.nomina_total);
-
-        }else{
+        } else {
           swal.fire('Do It Right', res.message, 'error');
         }
       });
@@ -303,5 +302,25 @@ export class CampaignReportComponent implements OnInit {
     const diaStr = '01';
 
     return `${anioStr}-${mesStr}-${diaStr}`;
+  }
+
+  downloadXls() {
+    const worksheet = XLSX.utils.json_to_sheet(this.empleados);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
+
+    const blob = new Blob(
+      [XLSX.write(workbook, { bookType: 'xlsx', type: 'array' })],
+      {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      }
+    );
+
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Empleados.xlsx';
+    link.click();
+    window.URL.revokeObjectURL(url);
   }
 }
